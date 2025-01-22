@@ -18,8 +18,8 @@ const projects = [
       "TypeScript",
       "Vite",
     ],
-    // github: "https://github.com/sankim11/library-management",
-    // live: "https://munitora.com.br/",
+    github: "https://github.com/sankim11/library-management-frontend",
+    live: "https://flulibrary.netlify.app/",
   },
   {
     title: "Library Management System",

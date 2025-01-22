@@ -16,8 +16,9 @@ const About = () => {
           <div>
             <p className="text-gray-600 mb-6">
               Results-oriented Software Engineer with expertise in full-stack
-              development. Passionate about delivering innovative, high-impact
-              applications that drive business success.
+              development and a Bachelor of Science in Software Engineering from
+              the University of Calgary. Passionate about delivering innovative,
+              high-impact applications that drive business success.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <div>
