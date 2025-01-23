@@ -42,7 +42,7 @@ const projects = [
     description:
       "A promotional website designed to introduce Munitora's innovative livestock management solutions, featuring a responsive design and seamless navigation to showcase the company's vision and offerings.",
     image:
-      "https://image.pitchbook.com/zImyuRx6jpUoQJ6Jo4c7LYWy8QO1723800342929_200x200",
+      "https://images.unsplash.com/photo-1666878125618-ed3dddd1ab36?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     technologies: ["React", "JavaScript", "AWS"],
     // github: "https://github.com",
     live: "https://munitora.com.br/",
