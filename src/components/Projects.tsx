@@ -48,12 +48,12 @@ const projects = [
     live: "https://munitora.com.br/",
   },
   {
-    title: "Deforestation Monitoring System",
+    title: "Road Trip Planner",
     description:
-      "A platform to monitor, analyze, and report deforestation in the Amazon and other regions of Brazil. Development will begin soon. Stay tuned for updates!",
+      "A smart road trip planning app that helps travelers find the best attractions, restaurants, and scenic stops along their route while providing real-time navigation, trip collaboration, and offline maps for a seamless travel experience.",
     image:
-      "https://plus.unsplash.com/premium_photo-1719955783013-218981c48c89?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    technologies: ["Django", "React", "TypeScript", "MongoDB", "AWS", "GCP"],
+      "https://images.unsplash.com/photo-1468818438311-4bab781ab9b8?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    technologies: ["Django", "React", "PostgreSQL", "Redis", "Celery", "Node.js", "MongoDB", "AWS", "Docker", "Kubernetes", "OpenAI"],
     // github: "https://github.com",
     //live: "https://munitora.com.br/",
   },
