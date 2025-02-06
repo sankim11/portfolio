@@ -11,7 +11,7 @@ const projects = [
     description:
       "Resume Forge Backend is a Node.js and Express-based backend that provides authentication, AI-powered resume generation, and data management using Firebase, Prisma, and PostgreSQL.",
     image:
-      "https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1653038417332-6db0ff9d4bfb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     technologies: [
       "Node.js",
       "Express.js",
