@@ -7,6 +7,23 @@ import "swiper/css/pagination";
 
 const projects = [
   {
+    title: "Resume Forge System",
+    description:
+      "Resume Forge Backend is a Node.js and Express-based backend that provides authentication, AI-powered resume generation, and data management using Firebase, Prisma, and PostgreSQL.",
+    image:
+      "https://plus.unsplash.com/premium_photo-1677567996070-68fa4181775a?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    technologies: [
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma ORM",
+      "Firebase Authentication",
+      "OpenAI API"
+    ],
+    github: "https://github.com/sankim11/resume-forge-backend",
+    // live: "https://munitora.com.br/",
+  },
+  {
     title: "Library Management Website",
     description:
       "An intuitive library management platform designed to streamline the process of managing books, members, and loans for efficient library operations.",
