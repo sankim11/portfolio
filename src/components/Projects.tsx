@@ -65,6 +65,14 @@ const projects = [
     live: "https://munitora.com.br/",
   },
   {
+    title: "Conversational AI Chatbot",
+    description:
+      "A conversational AI chatbot seamlessly integrated with the Notion API, enabling secure and intelligent discussions about documents stored on a Notion page.",
+    image:
+      "https://plus.unsplash.com/premium_photo-1725985758385-d5462d6e7f50?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    technologies: ["React", "JavaScript", "AWS"]
+  },
+  {
     title: "Road Trip Planner",
     description:
       "A smart road trip planning app that helps travelers find the best attractions, restaurants, and scenic stops along their route while providing real-time navigation, trip collaboration, and offline maps for a seamless travel experience.",

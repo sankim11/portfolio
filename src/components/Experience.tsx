@@ -14,13 +14,6 @@ const experiences = [
       "Optimized backend systems and streamlined data handling for scalable banking applications.",
   },
   {
-    company: "Motiv",
-    position: "Full Stack Software Engineer",
-    period: "September 2023 - April 2024",
-    description:
-      "Developed AI-powered tools and integrated scalable full-stack solutions for seamless performance.",
-  },
-  {
     company: "BTG Pactual",
     position: "Full Stack Software Engineer Intern",
     period: "September 2023 - April 2024",
