@@ -70,7 +70,7 @@ const projects = [
       "A conversational AI chatbot seamlessly integrated with the Notion API, enabling secure and intelligent discussions about documents stored on a Notion page.",
     image:
       "https://plus.unsplash.com/premium_photo-1725985758385-d5462d6e7f50?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    technologies: ["React", "JavaScript", "AWS"]
+    technologies: ["Vue", "Nuxt.js", "TypeScript", "Open AI", "LangChain", "PostgreSQL", "tRPC", "Vercel"]
   },
   {
     title: "Road Trip Planner",
