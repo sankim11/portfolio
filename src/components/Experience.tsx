@@ -1,5 +1,11 @@
 const experiences = [
   {
+    company: "Motiv",
+    position: "Junior Full-Stack Developer",
+    period: "February 2025 - Present",
+    description:
+      "",
+  },{
     company: "Munitora Livestock Management Solutions Inc.",
     position: "Co-Founder & CTO",
     period: "November 2023 - Present",
