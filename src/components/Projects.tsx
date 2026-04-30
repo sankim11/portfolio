@@ -24,9 +24,9 @@ const projects: Project[] = [
     blurb:
       'A social, pool-based betting platform where friends compete against each other rather than against the house.',
     stack: {
-      frontend: ['React', 'TypeScript', 'Tailwind', 'Vite'],
-      backend: ['Supabase', 'Postgres', 'Auth'],
-      infra: ['Vercel', 'Render'],
+      frontend: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind', 'Radix UI', 'TanStack Query', 'Framer Motion'],
+      backend: ['Fastify 5', 'Supabase', 'Postgres', 'Kysely', 'Zod', 'Turborepo'],
+      infra: ['Vercel', 'Docker', 'Sentry', 'pnpm workspaces'],
     },
     role: 'Solo build',
     status: 'In active development',
@@ -44,9 +44,9 @@ const projects: Project[] = [
     blurb:
       'A solo side project — an ongoing platform matching youth from Brazilian favelas with companies hiring for entry-level roles, lowering the gap between talent and opportunity.',
     stack: {
-      frontend: ['React', 'TypeScript'],
-      backend: ['Postgres', 'REST'],
-      infra: ['Mission-driven', 'Brazil'],
+      frontend: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind', 'Flutter'],
+      backend: ['Supabase', 'Postgres', 'JOSE / JWT'],
+      infra: ['Vercel', 'Playwright', 'Vitest'],
     },
     role: 'Solo build',
     status: 'In progress · social-impact',
@@ -64,9 +64,9 @@ const projects: Project[] = [
     blurb:
       'A modular livestock management platform covering mobile field operations, web dashboards, and Azure-backed infrastructure. $50K Inventures 2024 pitch winner.',
     stack: {
-      frontend: ['Flutter', 'TypeScript'],
-      backend: ['Prisma', 'Postgres'],
-      infra: ['Azure', 'Pulumi'],
+      frontend: ['Flutter', 'React 19', 'TypeScript', 'Tailwind', 'Vite'],
+      backend: ['Express 5', 'Prisma', 'Postgres', 'Firebase', 'Stripe', 'OpenAI', 'Zod'],
+      infra: ['Azure Functions', 'Mapbox', 'Docker', 'Resend'],
     },
     role: 'Co-founder & CTO · team of 5',
     status: 'In market',
