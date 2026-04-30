@@ -1,52 +1,170 @@
-import { ChevronDown } from "lucide-react";
+const heroChars = [
+  { ch: 'D' },
+  { ch: 'a' },
+  { ch: 'v' },
+  { ch: 'i' },
+  { ch: 'd' },
+  { ch: ' ' },
+  { ch: 'S' },
+  { ch: 'a' },
+  { ch: 'n' },
+];
+
+const heroChars2 = [{ ch: 'K' }, { ch: 'i' }, { ch: 'm' }, { ch: '.' }];
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Geometric pattern background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234338ca' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            opacity: 0.5,
-          }}
-        />
-      </div>
+    <section
+      id="top"
+      style={{
+        position: 'relative',
+        minHeight: '100vh',
+        paddingTop: 120,
+        paddingBottom: 80,
+      }}
+      className="grain"
+    >
+      <div className="orb" style={{ top: '-12%', left: '-8%' }}></div>
 
-      {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="bg-white/30 backdrop-blur-lg p-8 rounded-2xl shadow-xl">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            <span className="text-blue-600">&lt;Hi, I'm&nbsp;</span>
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              David San Kim
-            </span>
-            <span className="text-blue-600">&nbsp;/&gt;</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Empowering ideas through code, crafting seamless and impactful
-            digital experiences as a full-stack developer.
-          </p>
-          <div className="flex justify-center space-x-4">
+      <div className="wrap" style={{ position: 'relative', zIndex: 2 }}>
+        {/* index strip */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'baseline',
+            marginBottom: 80,
+          }}
+        >
+          <span className="label">Portfolio · MMXXVI</span>
+          <span className="label">
+            No. 01 / Calgary, AB · 51.04°N, 114.07°W
+          </span>
+        </div>
+
+        {/* Headline row: eyebrow + name on left, marginalia note on right */}
+        <div className="hero-headline-row">
+          <div>
+            {/* Eyebrow */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 14,
+                marginBottom: 36,
+              }}
+            >
+              <span className="divider-dot"></span>
+              <span className="label">Full Stack Software Engineer</span>
+            </div>
+
+            {/* Headline */}
+            <h1
+              className="h-display"
+              id="heroHeadline"
+              style={{ fontSize: 'clamp(48px, 9vw, 148px)', marginBottom: 0 }}
+            >
+              <span className="line">
+                {heroChars.map((c, i) => (
+                  <span className="rc" key={`a-${i}`}>
+                    {c.ch}
+                  </span>
+                ))}
+              </span>
+              <br />
+              <span
+                className="line"
+                style={{ fontStyle: 'italic', color: 'var(--gold)' }}
+              >
+                {heroChars2.map((c, i) => (
+                  <span className="rc" key={`b-${i}`}>
+                    {c.ch}
+                  </span>
+                ))}
+              </span>
+            </h1>
+          </div>
+
+          <aside className="hero-note enter">
+            <div className="hero-note-head">
+              <span className="label" style={{ color: 'var(--gold)' }}>
+                §.0
+              </span>
+              <span className="label">A short note</span>
+            </div>
+            <p className="hero-note-body">
+              A full-stack engineer drawn to the{' '}
+              <em>edges where things overlap</em> — frontend meets
+              infrastructure, data meets product, AI meets the things that
+              actually ship. Daily stack is TypeScript and Nuxt on Node, with
+              Postgres beneath. What I love is the whole arc — planning the
+              architecture, building the thing, the small wins when it clicks
+              — and right now AI is what excites me most: leverage on the
+              hardest problems.
+            </p>
+            <div className="hero-note-foot">
+              <span className="hero-note-rule" aria-hidden></span>
+              <span className="label">On the work · 2026</span>
+            </div>
+          </aside>
+        </div>
+
+        {/* Actions + meta */}
+        <div
+          className="enter"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 22,
+            alignItems: 'flex-start',
+            marginTop: 56,
+          }}
+        >
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
             <a
-              href="#contact"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
+              href="#work"
+              className="btn btn-gold magnet"
+              data-cursor="hover"
+              data-magnet
+            >
+              Selected work →
+            </a>
+            <a
+              href="mailto:davidsankim02@gmail.com"
+              className="btn magnet"
+              data-cursor="hover"
+              data-magnet
             >
               Get in touch
             </a>
-            <a
-              href="#projects"
-              className="bg-white/80 border border-gray-200 text-gray-700 px-8 py-3 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-colors shadow-lg hover:shadow-xl"
-            >
-              View my work
-            </a>
+          </div>
+
+          <div
+            className="label"
+            style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}
+          >
+            <span>EN · PT · KO · ES</span>
+            <span>Calgary, AB</span>
+            <span>Available · Q3 '26</span>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ChevronDown className="text-gray-400" size={24} />
+      {/* Scroll cue */}
+      <div
+        className="wrap"
+        style={{
+          position: 'absolute',
+          bottom: 36,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <span className="label">Scroll</span>
+        <span className="label">↓ §.01 — §.06</span>
       </div>
     </section>
   );
