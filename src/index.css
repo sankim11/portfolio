@@ -263,10 +263,10 @@ html[data-theme='dark'] .grain::before {
 .atelier-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr 1fr 1.4fr 0.85fr;
+  grid-template-rows: 1fr 1fr 1.2fr 1.2fr 0.85fr;
   gap: 1px;
   background: var(--line-strong);
-  height: clamp(540px, 62vw, 720px);
+  height: clamp(680px, 78vw, 900px);
 }
 .atelier-tile {
   position: relative;

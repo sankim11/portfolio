@@ -79,6 +79,66 @@ const projects: Project[] = [
   },
   {
     no: '04',
+    name: 'Brushwork',
+    title: 'A painter’s portfolio, by medium.',
+    blurb:
+      'A personal art portfolio split by medium — drawing, acrylic, oil, watercolour. React 18 + Vite + Tailwind v4 SPA, hand-tuned palettes per room, route-driven gallery navigation.',
+    stack: {
+      frontend: ['React 18', 'TypeScript', 'Vite 6', 'Tailwind v4', 'React Router 6'],
+      backend: [],
+      infra: ['Vite', 'tsc'],
+    },
+    role: 'Solo build · side project',
+    status: 'Local · personal',
+    year: '2026',
+    tone: { from: '#2a1c24', to: '#0a0708' },
+    glyph: 'B',
+    deployed: true,
+    span: { col: 2, row: 1 },
+    overlayAnchor: 'tl',
+  },
+  {
+    no: '05',
+    name: 'Rainbow 6 Manual',
+    title: 'A tactical reference for Rainbow Six.',
+    blurb:
+      'A Rainbow Six Siege field manual — operator catalog, map blueprints, loadouts, drone doctrine, tier list, and comms reference. React 18 + Vite, frontend-only, structured component-per-section.',
+    stack: {
+      frontend: ['React 18', 'Vite 5', 'JavaScript', 'CSS'],
+      backend: [],
+      infra: ['ESLint 9', 'Vite'],
+    },
+    role: 'Solo build · side project',
+    status: 'Local · personal',
+    year: '2026',
+    tone: { from: '#1f2218', to: '#08090a' },
+    glyph: 'R6',
+    deployed: true,
+    span: { col: 2, row: 1 },
+    overlayAnchor: 'tl',
+  },
+  {
+    no: '06',
+    name: 'PoloMetrics',
+    title: 'Workload · recovery · pairing, for polo.',
+    blurb:
+      'Workload, recovery, and pairing analytics for high-goal polo players — the player–horse pair treated as a first-class entity. Flutter app (iOS / Android / Windows) plus a static marketing site, organized as a monorepo.',
+    stack: {
+      frontend: ['Flutter', 'Dart', 'fl_chart', 'Material', 'HTML / CSS'],
+      backend: [],
+      infra: ['Monorepo', 'iOS', 'Android', 'Windows desktop'],
+    },
+    role: 'Solo build · side project',
+    status: 'Local · prototype',
+    year: '2026',
+    tone: { from: '#1a2820', to: '#080c0a' },
+    glyph: 'PM',
+    deployed: true,
+    span: { col: 2, row: 1 },
+    overlayAnchor: 'tr',
+  },
+  {
+    no: '07',
     name: 'Library Management',
     title: 'A clean-architecture library, end-to-end.',
     blurb:
@@ -111,7 +171,7 @@ const projects: Project[] = [
     overlayAnchor: 'tr',
   },
   {
-    no: '05',
+    no: '08',
     name: 'Mail Assistant',
     title: 'Inbox, calendar, and tasks — one panel.',
     blurb:
@@ -139,7 +199,7 @@ const projects: Project[] = [
     overlayAnchor: 'tl',
   },
   {
-    no: '06',
+    no: '09',
     name: 'Resume Forge',
     title: 'AI-assisted résumés, end-to-end.',
     blurb:
@@ -159,7 +219,7 @@ const projects: Project[] = [
     overlayAnchor: 'tl',
   },
   {
-    no: '07',
+    no: '10',
     name: 'TotalSupri',
     title: 'A polished marketing site, hand-tuned.',
     blurb:
@@ -176,66 +236,6 @@ const projects: Project[] = [
     glyph: 'T',
     deployed: false,
     span: { col: 6, row: 1 },
-    overlayAnchor: 'tr',
-  },
-  {
-    no: '08',
-    name: 'Brushwork',
-    title: 'A painter’s portfolio, by medium.',
-    blurb:
-      'A personal art portfolio split by medium — drawing, acrylic, oil, watercolour. React 18 + Vite + Tailwind v4 SPA, hand-tuned palettes per room, route-driven gallery navigation.',
-    stack: {
-      frontend: ['React 18', 'TypeScript', 'Vite 6', 'Tailwind v4', 'React Router 6'],
-      backend: [],
-      infra: ['Vite', 'tsc'],
-    },
-    role: 'Solo build · side project',
-    status: 'Local · personal',
-    year: '2026',
-    tone: { from: '#2a1c24', to: '#0a0708' },
-    glyph: 'B',
-    deployed: false,
-    span: { col: 2, row: 1 },
-    overlayAnchor: 'tl',
-  },
-  {
-    no: '09',
-    name: 'Tac-Ops Field Manual',
-    title: 'A tactical reference for Rainbow Six.',
-    blurb:
-      'A Rainbow Six Siege field manual — operator catalog, map blueprints, loadouts, drone doctrine, tier list, and comms reference. React 18 + Vite, frontend-only, structured component-per-section.',
-    stack: {
-      frontend: ['React 18', 'Vite 5', 'JavaScript', 'CSS'],
-      backend: [],
-      infra: ['ESLint 9', 'Vite'],
-    },
-    role: 'Solo build · side project',
-    status: 'Local · personal',
-    year: '2026',
-    tone: { from: '#1f2218', to: '#08090a' },
-    glyph: 'S',
-    deployed: false,
-    span: { col: 2, row: 1 },
-    overlayAnchor: 'tl',
-  },
-  {
-    no: '10',
-    name: 'PoloMetrics',
-    title: 'Workload · recovery · pairing, for polo.',
-    blurb:
-      'Workload, recovery, and pairing analytics for high-goal polo players — the player–horse pair treated as a first-class entity. Flutter app (iOS / Android / Windows) plus a static marketing site, organized as a monorepo.',
-    stack: {
-      frontend: ['Flutter', 'Dart', 'fl_chart', 'Material', 'HTML / CSS'],
-      backend: [],
-      infra: ['Monorepo', 'iOS', 'Android', 'Windows desktop'],
-    },
-    role: 'Solo build · side project',
-    status: 'Local · prototype',
-    year: '2026',
-    tone: { from: '#1a2820', to: '#080c0a' },
-    glyph: 'Pm',
-    deployed: false,
-    span: { col: 2, row: 1 },
     overlayAnchor: 'tr',
   },
 ];
