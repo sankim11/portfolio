@@ -887,13 +887,11 @@ const OffHours = () => {
         document.documentElement.getAttribute('data-theme') === 'dark';
       if (lMatRef) {
         lMatRef.opacity = dark ? 0.55 : 0.7;
-        lMatRef.color.setHex(dark ? 0xe6c98a : 0x5a4318);
+        lMatRef.color.setHex(dark ? 0x7dd49a : 0x00582a);
         lMatRef.needsUpdate = true;
       }
       if (pMatRef) {
-        // Tint multiplies the sprite — darken in light mode so the warm
-        // cream sprite reads as deep bronze against pastel backgrounds.
-        pMatRef.color.setHex(dark ? 0xffffff : 0x6e5320);
+        pMatRef.color.setHex(dark ? 0xffffff : 0x00582a);
         pMatRef.opacity = 1.0;
       }
     }
@@ -946,7 +944,7 @@ const OffHours = () => {
       lGeo.setIndex(idxAttr);
       setEdgesForTarget(currentId);
       const lMat = new THREE.LineBasicMaterial({
-        color: 0xc9a961,
+        color: 0x4fb872,
         transparent: true,
         opacity: 0.22,
         depthWrite: false,

@@ -235,7 +235,55 @@ const projects: Project[] = [
     tone: { from: '#1a2a26', to: '#070a09' },
     glyph: 'T',
     deployed: false,
-    span: { col: 6, row: 1 },
+    span: { col: 2, row: 1 },
+    overlayAnchor: 'tr',
+  },
+  {
+    no: '11',
+    name: 'Team Smandych',
+    title: 'A Calgary Muay Thai gym, rebuilt.',
+    blurb:
+      'A modern site rebuild for Team Smandych Muay Thai & Kickboxing in Calgary — six pages covering schedule, trainers, fees, a 3-step registration wizard, and contact info, with all gym content driven by typed data modules.',
+    stack: {
+      frontend: [
+        'Next.js 14',
+        'React 18',
+        'TypeScript',
+        'Tailwind',
+        'Framer Motion',
+        'React Hook Form',
+        'Zod',
+      ],
+      backend: [],
+      infra: ['next/font', 'next/image', 'ESLint'],
+    },
+    role: 'Solo build · client work',
+    status: 'Local · in development',
+    year: '2026',
+    tone: { from: '#2a1212', to: '#0a0606' },
+    glyph: 'TS',
+    deployed: true,
+    span: { col: 2, row: 1 },
+    overlayAnchor: 'tl',
+  },
+  {
+    no: '12',
+    name: 'Loupe',
+    title: 'AI-generated visuals you can drill into.',
+    blurb:
+      'An interactive AI-generated visual explorer — type a prompt, get an isometric illustration, click any element to drill in. Built collaboratively by Claude Code (frontend / integration) and Gemini CLI (image generation), with a shared SPEC contract.',
+    stack: {
+      frontend: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind v4'],
+      backend: ['@google/genai', 'Gemini API'],
+      infra: ['tsx', 'PostCSS', 'dotenv'],
+    },
+    role: 'Multi-agent build · prototype',
+    status: 'Local · v0 prototype',
+    year: '2026',
+    tone: { from: '#101a2c', to: '#06070c' },
+    glyph: 'Lp',
+    deployed: true,
+    span: { col: 2, row: 1 },
     overlayAnchor: 'tr',
   },
 ];
@@ -395,7 +443,7 @@ const Projects = () => {
               </h2>
             </div>
             <span className="label hidden md:inline">
-              10 projects · 2023 — 2026
+              12 projects · 2023 — 2026
             </span>
           </div>
 

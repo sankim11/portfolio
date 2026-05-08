@@ -3,16 +3,18 @@
 @tailwind utilities;
 
 :root {
-  /* light (default) */
-  --bg: #f4efe6;
-  --bg-2: #ede6d8;
-  --fg: #1a1814;
-  --body: #3a352d;
-  --muted: #847c6e;
+  /* light (default) — primary accent: Brazilian green / secondary accent: Korean red */
+  --bg: #fafaf7;
+  --bg-2: #efefec;
+  --fg: #14140f;
+  --body: #2f2e2a;
+  --muted: #75736d;
   --line: rgba(26, 24, 20, 0.12);
   --line-strong: rgba(26, 24, 20, 0.24);
-  --gold: #8a6e2e;
-  --gold-soft: rgba(138, 110, 46, 0.16);
+  --gold: #00833a;
+  --gold-soft: rgba(0, 131, 58, 0.16);
+  --accent: #c8102e;
+  --accent-soft: rgba(200, 16, 46, 0.16);
   --surface: rgba(26, 24, 20, 0.025);
   --surface-2: rgba(26, 24, 20, 0.05);
 }
@@ -24,8 +26,10 @@ html[data-theme='dark'] {
   --muted: #8b8780;
   --line: rgba(242, 237, 228, 0.1);
   --line-strong: rgba(242, 237, 228, 0.22);
-  --gold: #c9a961;
-  --gold-soft: rgba(201, 169, 97, 0.18);
+  --gold: #4fb872;
+  --gold-soft: rgba(79, 184, 114, 0.18);
+  --accent: #e55b5c;
+  --accent-soft: rgba(229, 91, 92, 0.2);
   --surface: rgba(242, 237, 228, 0.025);
   --surface-2: rgba(242, 237, 228, 0.05);
 }
@@ -200,7 +204,7 @@ html[data-theme='dark'] .grain::before {
 .cursor-dot {
   width: 4px;
   height: 4px;
-  background: var(--gold);
+  background: var(--accent);
   border-radius: 50%;
 }
 .cursor-ring {
@@ -218,8 +222,8 @@ html[data-theme='dark'] .grain::before {
   width: 6px;
   height: 22px;
   border-radius: 1px;
-  background: var(--gold);
-  border-color: var(--gold);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 @media (max-width: 900px) {
   .cursor-dot,
@@ -313,7 +317,7 @@ html[data-theme='dark'] .grain::before {
 }
 .atelier-status-dot.is-deployed {
   background: var(--gold);
-  box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.18);
+  box-shadow: 0 0 0 3px var(--gold-soft);
 }
 .atelier-status-dot.is-local {
   background: transparent;
@@ -381,32 +385,32 @@ html[data-theme='dark'] .grain::before {
 .atelier-stage[data-overlay-anchor='br'] .atelier-overlay {
   right: 0;
   bottom: 0;
-  border-top: 1px solid rgba(201, 169, 97, 0.28);
-  border-left: 1px solid rgba(201, 169, 97, 0.28);
+  border-top: 1px solid rgba(79, 184, 114, 0.32);
+  border-left: 1px solid rgba(79, 184, 114, 0.32);
   box-shadow: -24px -24px 60px rgba(0, 0, 0, 0.35);
   transform: translate(8px, 8px);
 }
 .atelier-stage[data-overlay-anchor='bl'] .atelier-overlay {
   left: 0;
   bottom: 0;
-  border-top: 1px solid rgba(201, 169, 97, 0.28);
-  border-right: 1px solid rgba(201, 169, 97, 0.28);
+  border-top: 1px solid rgba(79, 184, 114, 0.32);
+  border-right: 1px solid rgba(79, 184, 114, 0.32);
   box-shadow: 24px -24px 60px rgba(0, 0, 0, 0.35);
   transform: translate(-8px, 8px);
 }
 .atelier-stage[data-overlay-anchor='tr'] .atelier-overlay {
   right: 0;
   top: 0;
-  border-bottom: 1px solid rgba(201, 169, 97, 0.28);
-  border-left: 1px solid rgba(201, 169, 97, 0.28);
+  border-bottom: 1px solid rgba(79, 184, 114, 0.32);
+  border-left: 1px solid rgba(79, 184, 114, 0.32);
   box-shadow: -24px 24px 60px rgba(0, 0, 0, 0.35);
   transform: translate(8px, -8px);
 }
 .atelier-stage[data-overlay-anchor='tl'] .atelier-overlay {
   left: 0;
   top: 0;
-  border-bottom: 1px solid rgba(201, 169, 97, 0.28);
-  border-right: 1px solid rgba(201, 169, 97, 0.28);
+  border-bottom: 1px solid rgba(79, 184, 114, 0.32);
+  border-right: 1px solid rgba(79, 184, 114, 0.32);
   box-shadow: 24px 24px 60px rgba(0, 0, 0, 0.35);
   transform: translate(-8px, -8px);
 }
@@ -486,9 +490,9 @@ html[data-theme='dark'] .grain::before {
   white-space: nowrap;
 }
 .chip-fe {
-  border-color: rgba(201, 169, 97, 0.55);
-  color: #e8d8a8;
-  background: rgba(201, 169, 97, 0.08);
+  border-color: rgba(79, 184, 114, 0.55);
+  color: #b8e6c4;
+  background: rgba(79, 184, 114, 0.1);
 }
 .chip-be {
   border-color: rgba(242, 237, 228, 0.22);
@@ -883,7 +887,7 @@ html[data-theme='dark'] .theme-toggle::after {
   top: 10px;
   width: 9px;
   height: 9px;
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent);
   background: var(--bg);
   transform: rotate(45deg);
 }
@@ -909,7 +913,7 @@ a {
 .divider-dot {
   width: 4px;
   height: 4px;
-  background: var(--gold);
+  background: var(--accent);
   display: inline-block;
   vertical-align: middle;
   transform: rotate(45deg);
