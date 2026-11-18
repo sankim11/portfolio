@@ -46,6 +46,11 @@ ${buildKnowledge()}
 type ChatMessage = { role: 'user' | 'assistant'; content: string };
 type ErrorCode =
   | 'method_not_allowed'
+  | 'key_rejected'
+  | 'key_denied'
+  | 'billing'
+  | 'model_not_found'
+  | 'empty'
   | 'bad_request'
   | 'not_configured'
   | 'rate_limited'
@@ -116,8 +121,15 @@ export async function handleChat(
   request: Request,
   meta: { ip?: string } = {}
 ): Promise<Response> {
-  if (request.method !== 'POST') return jsonError(405, 'method_not_allowed');
   const apiKey = gatewayKey();
+  // Health check: open /api/chat in a browser to see whether the function is
+  // deployed and whether it can see a key. Reports a yes/no only, never the key.
+  if (request.method === 'GET')
+    return new Response(
+      JSON.stringify({ ok: true, keyConfigured: Boolean(apiKey), model: MODEL }),
+      { headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } }
+    );
+  if (request.method !== 'POST') return jsonError(405, 'method_not_allowed');
   if (!apiKey) return jsonError(503, 'not_configured');
 
   let body: unknown;
@@ -156,19 +168,39 @@ export async function handleChat(
           }
         }
         const final = await stream.finalMessage();
-        if (final.stop_reason === 'refusal' && !sent)
+        if (final.stop_reason === 'refusal' && !sent) {
+          sent = true;
           controller.enqueue(
             line({
               t: 'delta',
               v: `I can't help with that one. I can answer questions about David's work, projects and background.`,
             })
           );
-        controller.enqueue(line({ t: 'done' }));
+        }
+        if (sent) {
+          controller.enqueue(line({ t: 'done' }));
+        } else {
+          // The model finished without writing any text. Say so instead of
+          // leaving the visitor with a question and no reply.
+          console.error(`[chat] empty answer (stop_reason: ${final.stop_reason})`);
+          controller.enqueue(line({ t: 'error', code: 'empty' }));
+        }
       } catch (err) {
+        // Distinct codes for the owner (visible in the response and the function
+        // log); visitors see the same plain message for all the "not set up" ones.
         let code: ErrorCode = 'unavailable';
-        if (err instanceof Anthropic.AuthenticationError) code = 'not_configured';
-        else if (err instanceof Anthropic.PermissionDeniedError) code = 'not_configured';
+        if (err instanceof Anthropic.AuthenticationError) code = 'key_rejected';
+        // The gateway answers 403 when the account is on the free tier and the
+        // model needs paid credits; that is a billing fix, not a key fix.
+        else if (
+          err instanceof Anthropic.PermissionDeniedError &&
+          /free tier|paid credits/i.test(err.message)
+        )
+          code = 'billing';
+        else if (err instanceof Anthropic.PermissionDeniedError) code = 'key_denied';
+        else if (err instanceof Anthropic.APIError && err.status === 402) code = 'billing';
         else if (err instanceof Anthropic.RateLimitError) code = 'busy';
+        else if (err instanceof Anthropic.NotFoundError) code = 'model_not_found';
         else if (err instanceof Anthropic.BadRequestError) code = 'bad_request';
         // Log the failure for the site owner; never echo provider detail to visitors.
         if (err instanceof Anthropic.APIError)

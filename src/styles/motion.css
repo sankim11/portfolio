@@ -622,3 +622,17 @@ html.lenis body {
     transform: scaleX(0);
   }
 }
+
+/* ---------- Off-hours stage: a pool of light under the particle sculpture ---------- */
+.hobby-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 55% at 50% 58%, color-mix(in oklab, var(--sheen-3) 9%, transparent), transparent 70%),
+    radial-gradient(38% 30% at 68% 30%, color-mix(in oklab, var(--sheen-2) 6%, transparent), transparent 70%);
+}
+[data-theme='light'] .hobby-stage::before {
+  opacity: 0.6;
+}

@@ -19,8 +19,17 @@ export const hobbies: Hobby[] = [
     mood: 'bjj',
   },
   {
-    id: 'cooking',
+    id: 'golf',
     no: '02',
+    name: 'Golf',
+    caption: 'Flag, green and a ball by the hole',
+    copy: 'Eighteen holes of patience. One swing at a time, and the course always has the last word.',
+    tempo: 'in season',
+    mood: 'golf',
+  },
+  {
+    id: 'cooking',
+    no: '03',
     name: 'Cooking',
     caption: "Chef's hat, knife and pan",
     copy: 'Pasta from scratch, every kind of meat, asian, brazilian, and whatever I find scrolling. The kitchen is where I prototype with my hands.',
@@ -29,7 +38,7 @@ export const hobbies: Hobby[] = [
   },
   {
     id: 'venture',
-    no: '03',
+    no: '04',
     name: 'Entrepreneurship',
     caption: 'From zero to launch',
     copy: "Co-founded Munitora, and I still can't leave an idea alone. Find a real problem, build the smallest thing that tests it, put it in front of people.",
@@ -38,7 +47,7 @@ export const hobbies: Hobby[] = [
   },
   {
     id: 'football',
-    no: '04',
+    no: '05',
     name: 'Football',
     caption: 'The ball and the centre circle',
     copy: 'Ninety minutes where spacing, timing and trust in your teammates decide everything. The original systems game.',
@@ -47,7 +56,7 @@ export const hobbies: Hobby[] = [
   },
   {
     id: 'gaming',
-    no: '05',
+    no: '06',
     name: 'Gaming',
     caption: 'Controller, hex grid, raid map',
     copy: "Rainbow Six Siege, Civilization VII, Arc Raiders, Assassin’s Creed. Systems thinking applied to itemization, macro play, and raid call-outs.",
@@ -56,7 +65,7 @@ export const hobbies: Hobby[] = [
   },
   {
     id: 'painting',
-    no: '06',
+    no: '07',
     name: 'Painting',
     caption: 'Hanging Gardens and Petra, in progress',
     copy: 'Realistic landscapes in acrylic and oil. Currently working on the Hanging Gardens of Babylon and Petra. Color theory rewires how I think about UI palettes.',

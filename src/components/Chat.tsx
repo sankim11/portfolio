@@ -36,11 +36,20 @@ const suggestions = [
 ];
 
 // Each message says what happened and what the visitor can do next.
+const notConnected = `The chat isn't connected yet. You can reach David at ${profile.email}.`;
 const errorText: Record<string, string> = {
-  not_configured: `The chat isn't connected yet. You can reach David at ${profile.email}.`,
+  // Setup problems. Visitors get one plain message; the exact code is logged to
+  // the console and visible in the network response for whoever is fixing it.
+  not_configured: notConnected, // the function has no AI_GATEWAY_API_KEY
+  not_deployed: notConnected, // /api/chat is not there (404)
+  key_rejected: notConnected, // the gateway refused the key (401)
+  key_denied: notConnected, // the gateway refused access (403)
+  billing: notConnected, // the gateway account needs billing or budget (402)
+  model_not_found: notConnected, // CHAT_MODEL is not a gateway model ID
   rate_limited: 'That is a lot of questions in a short time. Try again in a few minutes.',
   busy: 'The assistant is busy right now. Try again in a moment.',
   bad_request: 'That message could not be sent. Try a shorter question.',
+  empty: 'No answer came back that time. Try asking again.',
   unavailable: `The assistant can't be reached right now. Try again, or email David at ${profile.email}.`,
 };
 const describeError = (code: string) => errorText[code] ?? errorText.unavailable;
@@ -273,10 +282,12 @@ const Chat = () => {
 
     const controller = new AbortController();
     abortRef.current = controller;
-    const fail = (code: string) =>
+    const fail = (code: string) => {
+      console.warn(`[chat] ${code}`);
       patchLast((m) =>
         m.content ? m : { ...m, content: describeError(code), parts: undefined, error: true }
       );
+    };
 
     try {
       const res = await fetch('/api/chat', {
@@ -288,7 +299,7 @@ const Chat = () => {
 
       if (!res.ok || !res.body) {
         const body = await res.json().catch(() => null);
-        fail(body?.error ?? (res.status === 404 ? 'not_configured' : 'unavailable'));
+        fail(body?.error ?? (res.status === 404 ? 'not_deployed' : 'unavailable'));
         return;
       }
 

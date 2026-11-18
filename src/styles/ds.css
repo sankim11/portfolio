@@ -705,7 +705,8 @@ a {
   height: 100%;
   display: block;
   cursor: grab;
-  touch-action: none;
+  /* Vertical swipes still scroll the page; sideways drags turn the sculpture. */
+  touch-action: pan-y;
 }
 .hobby-top,
 .hobby-bottom {
