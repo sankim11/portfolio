@@ -5,8 +5,8 @@ import { profile } from '../data/profile';
 
 const links = [
   { id: 'about', label: 'About' },
-  { id: 'work', label: 'Work' },
   { id: 'experience', label: 'Experience' },
+  { id: 'work', label: 'Work' },
   { id: 'offhours', label: 'Off-hours' },
   { id: 'contact', label: 'Contact' },
 ];

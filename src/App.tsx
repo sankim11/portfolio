@@ -4,6 +4,7 @@ import DriftBand from './components/DriftBand';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import Intro from './components/Intro';
 import Nav from './components/Nav';
+import { PageRail } from './components/PageRail';
 import { initReveal, initScrollEngine } from './lib/motion';
 import About from './sections/About';
 import Contact from './sections/Contact';
@@ -37,14 +38,15 @@ function App() {
         <Hero />
         <About />
         <DriftBand />
-        <Projects />
         <Experience />
+        <Projects />
         <Skills />
         <ErrorBoundary name="off-hours">
           <OffHours />
         </ErrorBoundary>
         <Contact />
       </main>
+      <PageRail />
       <ErrorBoundary name="chat">
         <Suspense fallback={null}>
           <Chat />

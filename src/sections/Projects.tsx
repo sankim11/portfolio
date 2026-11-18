@@ -1,8 +1,8 @@
 import { useRef, useState, type PointerEvent } from 'react';
-import { scroller } from '../lib/motion';
 import { X } from 'lucide-react';
 
 import { projects, type Project } from '../data/projects';
+import { scroller } from '../lib/motion';
 
 type Filter = 'all' | 'live' | 'local';
 

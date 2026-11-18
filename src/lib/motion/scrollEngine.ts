@@ -5,6 +5,15 @@ import { clamp01, prefersReducedMotion } from './reducedMotion';
 /** The shared smooth scroller, so dialogs can pause it. Null under reduced motion. */
 export const scroller: { lenis: Lenis | null } = { lenis: null };
 
+/**
+ * Glides the page to a scroll position. Jumps straight there under reduced
+ * motion, where there is no smooth scroller.
+ */
+export function glideTo(top: number, seconds = 1.2): void {
+  if (scroller.lenis) scroller.lenis.scrollTo(top, { duration: seconds });
+  else window.scrollTo({ top, behavior: 'instant' });
+}
+
 /** Room left for the fixed nav when gliding to a section. */
 const ANCHOR_OFFSET = -72;
 

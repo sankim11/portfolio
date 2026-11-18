@@ -613,6 +613,124 @@ a {
   }
 }
 
+/* ---------- Thumb rail ---------- */
+/* A column of initials on the screen edge for long lists on phones. --n is the
+   number of stops, --at the current one; each stop's --lift (0 to 1) is how far
+   the thumb is pulling it off the edge. */
+.thumb-rail {
+  --stop: clamp(20px, calc(56svh / var(--n)), 44px);
+  --gutter: var(--space-4);
+  position: fixed;
+  right: env(safe-area-inset-right, 0px);
+  top: 50%;
+  z-index: 40;
+  translate: 14px -50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 320ms var(--ease-out), translate 420ms var(--ease-out),
+    visibility 0s 320ms;
+}
+.thumb-rail[data-on] {
+  translate: 0 -50%;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.thumb-rail-track {
+  display: grid;
+  grid-template-rows: repeat(var(--n), var(--stop));
+  width: 36px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.thumb-rail-stop {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+}
+.thumb-rail-stop span {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: var(--gutter);
+  text-align: center;
+  text-shadow: 0 0 6px var(--bg), 0 0 2px var(--bg);
+  translate: calc(var(--lift, 0) * -22px) -50%;
+  scale: calc(1 + var(--lift, 0) * 0.9);
+  transition: translate 320ms var(--ease-out), scale 320ms var(--ease-out), color 240ms linear;
+}
+.thumb-rail[data-touching] .thumb-rail-stop span {
+  transition-duration: 70ms, 70ms, 240ms;
+}
+.thumb-rail-stop[aria-current] {
+  color: var(--text);
+}
+.thumb-rail-stop[aria-current] span {
+  font-weight: 500;
+  scale: calc(1.25 + var(--lift, 0) * 0.9);
+}
+.thumb-rail-stop:focus-visible {
+  outline: none;
+}
+.thumb-rail-stop:focus-visible span {
+  outline: 2px solid var(--chrome-1);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.thumb-rail-bubble {
+  position: absolute;
+  right: 46px;
+  top: calc((var(--at) + 0.5) * var(--stop));
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  box-shadow: var(--shadow-stage);
+  color: var(--text-2);
+  white-space: nowrap;
+  pointer-events: none;
+  translate: 8px -50%;
+  scale: 0.94;
+  transform-origin: right center;
+  opacity: 0;
+  transition: opacity 200ms linear, translate 320ms var(--ease-out), scale 320ms var(--ease-out),
+    top 220ms var(--ease-out);
+}
+.thumb-rail-bubble[data-show] {
+  translate: 0 -50%;
+  scale: 1;
+  opacity: 1;
+}
+.thumb-rail-bubble b {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--text);
+}
+.thumb-rail-bubble span {
+  font-size: 12px;
+}
+.thumb-rail-bubble b + span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-3);
+}
+@media (min-width: 761px) {
+  .thumb-rail {
+    display: none;
+  }
+}
 /* ---------- Toolkit list ---------- */
 .tools {
   border-radius: var(--radius-lg);
