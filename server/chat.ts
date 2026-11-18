@@ -1,10 +1,11 @@
 // The chat endpoint, written against the web-standard Request/Response so the
-// same handler runs behind any host: api/chat.ts wraps it for Vercel functions,
-// and vite.config.ts mounts it at /api/chat during local development.
+// same handler runs behind any host: netlify/functions/chat.mts wraps it for
+// Netlify, and vite.config.ts mounts it at /api/chat during local development.
 //
-// Requests go through Vercel AI Gateway using its Anthropic-compatible API, so
-// this is the regular Anthropic SDK pointed at the gateway. Billing, usage and
-// spend limits are managed in the AI Gateway dashboard.
+// The site is hosted on Netlify; the model is reached through Vercel AI Gateway
+// using its Anthropic-compatible API, so this is the regular Anthropic SDK
+// pointed at the gateway. Billing, usage and the monthly budget are managed in
+// the AI Gateway dashboard on Vercel.
 import Anthropic from '@anthropic-ai/sdk';
 import { buildKnowledge } from '../src/data/knowledge.js';
 import { profile } from '../src/data/profile.js';
@@ -58,15 +59,10 @@ const jsonError = (status: number, error: ErrorCode) =>
   });
 
 /**
- * AI Gateway credential. Locally this is an AI Gateway API key in .env.local.
- * On Vercel no key is needed: each request to a function carries a short-lived
- * OIDC token that the gateway accepts, so nothing secret is stored.
+ * AI Gateway API key. Set AI_GATEWAY_API_KEY in Netlify (scope: Functions) for
+ * production and in .env.local for development. It never reaches the browser.
  */
-const gatewayKey = (request: Request) =>
-  process.env.AI_GATEWAY_API_KEY ||
-  request.headers.get('x-vercel-oidc-token') ||
-  process.env.VERCEL_OIDC_TOKEN ||
-  '';
+const gatewayKey = () => process.env.AI_GATEWAY_API_KEY || '';
 
 // Best-effort rate limit. Memory is per server instance, so on serverless hosts
 // this only slows a burst from one address; pair it with the host's own rate
@@ -116,9 +112,12 @@ function parseMessages(body: unknown): ChatMessage[] | null {
  *   {"t":"delta","v":"text"} …  then {"t":"done"}  or  {"t":"error","code":"…"}
  * Failures before the stream starts come back as a JSON error with a status code.
  */
-export async function handleChat(request: Request): Promise<Response> {
+export async function handleChat(
+  request: Request,
+  meta: { ip?: string } = {}
+): Promise<Response> {
   if (request.method !== 'POST') return jsonError(405, 'method_not_allowed');
-  const apiKey = gatewayKey(request);
+  const apiKey = gatewayKey();
   if (!apiKey) return jsonError(503, 'not_configured');
 
   let body: unknown;
@@ -130,7 +129,9 @@ export async function handleChat(request: Request): Promise<Response> {
   const messages = parseMessages(body);
   if (!messages) return jsonError(400, 'bad_request');
 
-  const ip = (request.headers.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
+  const ip =
+    meta.ip ||
+    (request.headers.get('x-forwarded-for') ?? 'local').split(',')[0].trim();
   if (rateLimited(ip)) return jsonError(429, 'rate_limited');
 
   const client = new Anthropic({ apiKey, baseURL: GATEWAY_URL });

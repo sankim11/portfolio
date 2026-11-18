@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "server", "api", "src/data"]
+  "include": ["vite.config.ts", "server", "netlify", "src/data"]
 }

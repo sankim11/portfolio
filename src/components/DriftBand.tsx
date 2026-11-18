@@ -1,6 +1,6 @@
 import { useScrollVar } from '../motion';
 
-const words = ['Fintech', 'SaaS', 'AI', 'Agtech', 'Payments', 'Data pipelines'];
+const words = ['Fintech', 'SaaS', 'AI', 'Stripe', 'Agtech', 'Payments', 'Data pipelines'];
 const row = [...words, ...words];
 
 /** Two rows of oversized words that slide in opposite directions as you scroll. */

@@ -17,13 +17,14 @@ A chat panel on the site answers visitors' questions about me. It answers only f
 
 - `src/components/Chat.tsx` is the interface.
 - `server/chat.ts` is the endpoint: it builds the prompt from `src/data/knowledge.ts`, calls the Claude API and streams the answer.
-- `api/chat.ts` exposes it as a serverless function (Vercel-style). `vite.config.ts` serves the same handler at `/api/chat` during `npm run dev`.
+- `netlify/functions/chat.mts` exposes it at `/api/chat` on Netlify. `vite.config.ts` serves the same handler during `npm run dev`.
 
-The endpoint calls Claude through Vercel AI Gateway (model `anthropic/claude-haiku-5.5` by default; change it with `CHAT_MODEL`).
+The site is hosted on Netlify. The endpoint calls Claude through Vercel AI Gateway (model `anthropic/claude-haiku-5.5` by default; change it with `CHAT_MODEL`).
 
-- On Vercel no key is needed: functions authenticate to the gateway with the deployment's OIDC token.
-- Locally, copy `.env.example` to `.env.local` and add an `AI_GATEWAY_API_KEY`.
+- Create an AI Gateway API key in the Vercel dashboard and set a monthly budget there.
+- Production: add it in Netlify as `AI_GATEWAY_API_KEY` (scope must include Functions) and redeploy.
+- Locally: copy `.env.example` to `.env.local` and paste the key.
 
-The key stays on the server and is never sent to the browser. Without a credential the panel says the chat isn't connected.
+The key stays on the server and is never sent to the browser. Without it the panel says the chat isn't connected.
 
 Limits live at the top of `server/chat.ts`: question length, history size, answer size and a per-address rate limit. Set a budget in the AI Gateway dashboard as well, since the endpoint is public.

@@ -2,7 +2,7 @@
 // from the same data files the page renders, so the two can never drift apart.
 // Imports use .js extensions because this file also runs in Node as ESM.
 import { facts, paragraphs } from './about.js';
-import { experience } from './experience.js';
+import { education, experience } from './experience.js';
 import { hobbies } from './hobbies.js';
 import { profile } from './profile.js';
 import { projects } from './projects.js';
@@ -14,6 +14,7 @@ export function buildKnowledge(): string {
   out.push(
     '## Who he is',
     `${profile.name}. ${profile.role} based in ${profile.location}.`,
+    `Focus: ${profile.focus}`,
     ''
   );
 
@@ -32,6 +33,12 @@ export function buildKnowledge(): string {
     for (const b of e.bullets) out.push(`- ${b}`);
     out.push(`Stack: ${e.tags.join(', ')}`, '');
   }
+
+  out.push(
+    '## Education',
+    `${education.degree}. ${education.school}, ${education.location} (${education.date}).`,
+    ''
+  );
 
   out.push('## Projects (in the order the site shows them; the first is the most recent)');
   for (const p of projects) {

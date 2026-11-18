@@ -25,7 +25,7 @@ const Hero = () => {
             </p>
             <h1 className="t-display-xl sheen hero-name">David San Kim</h1>
             <p className="t-body-lg hero-sub hero-seq" style={delay(1300)}>
-              I build production systems across fintech, SaaS and AI, from the
+              I build AI products and the Stripe billing behind them, from the
               database schema up to the last pixel.
             </p>
             <div className="hero-actions hero-seq" style={delay(1500)}>

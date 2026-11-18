@@ -4,8 +4,7 @@ import react from '@vitejs/plugin-react';
 /**
  * Serves POST /api/chat during `npm run dev` with the same handler the
  * deployed function uses, so the chat works locally without a second server.
- * Reads AI_GATEWAY_*, VERCEL_OIDC_TOKEN and CHAT_* from .env.local (never
- * bundled into the client).
+ * Reads AI_GATEWAY_* and CHAT_* from .env.local (never bundled into the client).
  */
 function devChatApi(): Plugin {
   return {
@@ -14,7 +13,7 @@ function devChatApi(): Plugin {
     config(_, { mode }) {
       const env = loadEnv(mode, process.cwd(), '');
       for (const [key, value] of Object.entries(env))
-        if (/^(AI_GATEWAY_|VERCEL_OIDC_TOKEN$|CHAT_)/.test(key) && process.env[key] === undefined)
+        if (/^(AI_GATEWAY_|CHAT_)/.test(key) && process.env[key] === undefined)
           process.env[key] = value;
     },
     configureServer(server) {

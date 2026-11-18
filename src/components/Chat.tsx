@@ -31,7 +31,7 @@ const MAX_HISTORY_MESSAGES = 12;
 const suggestions = [
   'What is Ada?',
   'What did he build at Motiv?',
-  'Which stack does he use most?',
+  'What has he built with Stripe?',
   'What does he do outside work?',
 ];
 
