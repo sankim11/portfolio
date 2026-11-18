@@ -1,18 +1,23 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+
+import DriftBand from './components/DriftBand';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import Intro from './components/Intro';
 import Nav from './components/Nav';
-import Hero from './components/Hero';
-import About from './components/About';
-import DriftBand from './components/DriftBand';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Skills from './components/Skills';
-import OffHours from './components/OffHours';
-import Contact from './components/Contact';
-import Chat from './components/Chat';
-import { initReveal, initScrollEngine } from './motion';
+import { initReveal, initScrollEngine } from './lib/motion';
+import About from './sections/About';
+import Contact from './sections/Contact';
+import Experience from './sections/Experience';
+import Hero from './sections/Hero';
+import OffHours from './sections/OffHours';
+import Projects from './sections/Projects';
+import Skills from './sections/Skills';
+
+// The chat is not needed for first paint, so it loads as its own chunk.
+const Chat = lazy(() => import('./features/chat/Chat'));
 
 function App() {
+  // Page-wide motion: scroll reveals, smooth scrolling, scrubbed scenes.
   useEffect(() => {
     const stopReveal = initReveal();
     const stopEngine = initScrollEngine();
@@ -35,10 +40,16 @@ function App() {
         <Projects />
         <Experience />
         <Skills />
-        <OffHours />
+        <ErrorBoundary name="off-hours">
+          <OffHours />
+        </ErrorBoundary>
         <Contact />
       </main>
-      <Chat />
+      <ErrorBoundary name="chat">
+        <Suspense fallback={null}>
+          <Chat />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 }

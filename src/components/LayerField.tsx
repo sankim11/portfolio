@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
 
+import { prefersReducedMotion } from '../lib/motion';
+
 /**
  * Stacked ridgelines rising from the bottom of the hero stage — the layers of a
  * stack, drawn with hidden-line occlusion. Leans toward the pointer; a single
@@ -25,7 +27,7 @@ const LayerField = ({ intro = false, delay = 0, dive = false, top: topFactor }: 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduced = prefersReducedMotion();
     let w = 0;
     let h = 0;
     let raf = 0;

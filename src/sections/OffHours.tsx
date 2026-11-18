@@ -1,37 +1,57 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { hobbies } from '../data/hobbies';
-import { prefersReducedMotion } from '../motion';
-import { createSculpture, type Sculpture } from '../particleSculpture';
+import { hobbies, type HobbyId } from '../data/hobbies';
+import type { Sculpture } from '../features/sculpture';
+import { prefersReducedMotion } from '../lib/motion';
 
 /** How long each pursuit stays up while the tabs cycle on their own. */
 const CYCLE_MS = 5200;
 
 const OffHours = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const stageRef = useRef<HTMLDivElement | null>(null);
-  const stripRef = useRef<HTMLDivElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
   const sculptureRef = useRef<Sculpture | null>(null);
-  const [activeId, setActiveId] = useState<string>(hobbies[0].id);
+  const [activeId, setActiveId] = useState<HobbyId>(hobbies[0].id);
+  const activeIdRef = useRef(activeId);
+  activeIdRef.current = activeId;
   // When the tabs don't all fit (phones), they cycle on their own so it is
   // obvious there are more, until the visitor touches the tabs or the sculpture.
   const [auto, setAuto] = useState(true);
   const [overflows, setOverflows] = useState(false);
   const cycling = auto && overflows && !prefersReducedMotion();
 
-  const active = hobbies.find((h) => h.id === activeId) || hobbies[0];
+  const active = hobbies.find((h) => h.id === activeId) ?? hobbies[0];
 
-  // The particle sculpture lives for as long as the section does.
+  // The sculpture brings three.js with it, so its code is only fetched once the
+  // stage is about to scroll into view.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const sculpture = createSculpture(canvas, {
-      initial: hobbies[0].id,
-      onGrab: () => setAuto(false),
-    });
-    sculptureRef.current = sculpture;
+    let cancelled = false;
+
+    const nearby = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        nearby.disconnect();
+        import('../features/sculpture')
+          .then(({ createSculpture }) => {
+            if (cancelled) return;
+            sculptureRef.current = createSculpture(canvas, {
+              initial: activeIdRef.current,
+              onGrab: () => setAuto(false),
+            });
+          })
+          .catch((err) => console.error('[sculpture] failed to load', err));
+      },
+      { rootMargin: '1200px 0px' }
+    );
+    nearby.observe(canvas);
+
     return () => {
-      sculpture?.dispose();
+      cancelled = true;
+      nearby.disconnect();
+      sculptureRef.current?.dispose();
       sculptureRef.current = null;
     };
   }, []);
@@ -53,11 +73,11 @@ const OffHours = () => {
     };
     update();
     strip.addEventListener('scroll', update, { passive: true });
-    const ro = new ResizeObserver(update);
-    ro.observe(strip);
+    const observer = new ResizeObserver(update);
+    observer.observe(strip);
     return () => {
       strip.removeEventListener('scroll', update);
-      ro.disconnect();
+      observer.disconnect();
     };
   }, []);
 
@@ -77,20 +97,20 @@ const OffHours = () => {
     const stage = stageRef.current;
     if (!cycling || !stage) return;
     let inView = false;
-    const io = new IntersectionObserver(([e]) => (inView = e.isIntersecting), {
+    const observer = new IntersectionObserver(([e]) => (inView = e.isIntersecting), {
       threshold: 0.4,
     });
-    io.observe(stage);
+    observer.observe(stage);
     const id = window.setInterval(() => {
       if (!inView || document.hidden) return;
       if (document.documentElement.classList.contains('chat-open')) return;
-      setActiveId((cur) => {
-        const i = hobbies.findIndex((h) => h.id === cur);
+      setActiveId((current) => {
+        const i = hobbies.findIndex((h) => h.id === current);
         return hobbies[(i + 1) % hobbies.length].id;
       });
     }, CYCLE_MS);
     return () => {
-      io.disconnect();
+      observer.disconnect();
       window.clearInterval(id);
     };
   }, [cycling]);

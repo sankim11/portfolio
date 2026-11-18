@@ -1,8 +1,10 @@
-import type { CSSProperties } from 'react';
-import LayerField from './LayerField';
-import { useScrollVar } from '../motion';
+import LayerField from '../components/LayerField';
+import { profile } from '../data/profile';
+import { cssVars } from '../lib/cssVars';
+import { useScrollVar } from '../lib/motion';
 
-const delay = (ms: number) => ({ '--d': `${ms}ms` }) as CSSProperties;
+/** Delay, after the opening curtain, before a piece of the title sequence plays. */
+const delay = (ms: number) => cssVars({ '--d': `${ms}ms` });
 
 const Hero = () => {
   // --p runs 0 → 1 as the hero scrolls away; CSS turns it into parallax.
@@ -21,9 +23,9 @@ const Hero = () => {
           <LayerField intro dive delay={1100} />
           <div className="hero-content">
             <p className="hero-kicker hero-seq" style={delay(500)}>
-              Full-stack engineer in Calgary
+              {profile.role} in Calgary
             </p>
-            <h1 className="t-display-xl sheen hero-name">David San Kim</h1>
+            <h1 className="t-display-xl sheen hero-name">{profile.name}</h1>
             <p className="t-body-lg hero-sub hero-seq" style={delay(1300)}>
               I build AI products and the Stripe billing behind them, from the
               database schema up to the last pixel.
@@ -32,7 +34,7 @@ const Hero = () => {
               <a href="#work" className="btn btn-primary" data-magnet>
                 See selected work
               </a>
-              <a href="mailto:davidsankim02@gmail.com" className="btn">
+              <a href={`mailto:${profile.email}`} className="btn">
                 Email me
               </a>
             </div>

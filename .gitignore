@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Local env and Netlify state
+.env
+.env.*
+!.env.example
+.netlify
+
+# Test output
+coverage

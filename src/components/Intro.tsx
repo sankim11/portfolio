@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { prefersReducedMotion } from '../motion';
+import { prefersReducedMotion } from '../lib/motion';
 
 const COUNT_MS = 1100;
 const OPEN_MS = 1100;

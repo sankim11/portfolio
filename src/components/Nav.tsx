@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
+import { profile } from '../data/profile';
+
 const links = [
   { id: 'about', label: 'About' },
   { id: 'work', label: 'Work' },
@@ -60,7 +62,7 @@ const Nav = () => {
     >
       <span className="nav-progress" aria-hidden />
       <a href="#top" className="nav-brand">
-        David San Kim
+        {profile.name}
       </a>
       <div className="nav-links">
         {links.map((l) => (
@@ -83,7 +85,7 @@ const Nav = () => {
         >
           {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </button>
-        <a href="mailto:davidsankim02@gmail.com" className="btn btn-primary btn-sm" data-magnet>
+        <a href={`mailto:${profile.email}`} className="btn btn-primary btn-sm" data-magnet>
           Email me
         </a>
       </div>

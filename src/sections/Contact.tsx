@@ -1,4 +1,5 @@
-import LayerField from './LayerField';
+import LayerField from '../components/LayerField';
+import { profile } from '../data/profile';
 
 const Contact = () => {
   return (
@@ -10,27 +11,29 @@ const Contact = () => {
             Let's build something durable.
           </h2>
           <a
-            href="mailto:davidsankim02@gmail.com"
+            href={`mailto:${profile.email}`}
             className="btn btn-primary"
             data-reveal
             data-i="5"
           >
-            davidsankim02@gmail.com
+            {profile.email}
           </a>
           <div className="closing-links" data-reveal data-i="6">
-            <a className="text-link" href="https://linkedin.com/in/davidskim11">
+            <a className="text-link" href={profile.linkedin}>
               LinkedIn
             </a>
-            <a className="text-link" href="https://github.com/sankim11">
+            <a className="text-link" href={profile.github}>
               GitHub
             </a>
-            <a className="text-link" href="tel:+18254547093">
-              +1 (825) 454-7093
+            <a className="text-link" href={`tel:${profile.phone.replace(/[^+\d]/g, '')}`}>
+              {profile.phone}
             </a>
           </div>
         </div>
         <footer className="footer">
-          <span>© 2026 David San Kim</span>
+          <span>
+            © {new Date().getFullYear()} {profile.name}
+          </span>
           <span>Set in Geist. Designed and engineered by hand.</span>
         </footer>
       </div>

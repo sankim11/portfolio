@@ -1,7 +1,6 @@
-import type { CSSProperties } from 'react';
-import { useCountUp, useWordScrub } from '../motion';
-
 import { facts, paragraphs } from '../data/about';
+import { cssVars } from '../lib/cssVars';
+import { useCountUp, useWordScrub } from '../lib/motion';
 
 const Fact = ({ label, value }: { label: string; value: string }) => {
   const { ref, text } = useCountUp(value);
@@ -19,12 +18,13 @@ const About = () => {
   // --prog runs 0 → 1 as the copy scrolls through; each word lights up at its index.
   const copyRef = useWordScrub<HTMLDivElement>();
 
-  let wi = 0;
-  const body = paragraphs.map((segs, pi) => (
+  // Every word becomes a span carrying its position, so CSS can light them in order.
+  let wordIndex = 0;
+  const body = paragraphs.map((segments, pi) => (
     <p key={pi}>
-      {segs.map((seg, si) => {
-        const strong = typeof seg !== 'string';
-        const text = strong ? seg.strong : seg;
+      {segments.map((segment, si) => {
+        const strong = typeof segment !== 'string';
+        const text = strong ? segment.strong : segment;
         return text
           .split(/(\s+)/)
           .filter(Boolean)
@@ -35,7 +35,7 @@ const About = () => {
               <span
                 key={`${si}-${i}`}
                 className={strong ? 'w t-strong' : 'w'}
-                style={{ '--wi': wi++ } as CSSProperties}
+                style={cssVars({ '--wi': wordIndex++ })}
               >
                 {part}
               </span>
@@ -55,7 +55,7 @@ const About = () => {
           <div
             className="about-copy t-body-lg scrub"
             ref={copyRef}
-            style={{ '--n': wi } as CSSProperties}
+            style={cssVars({ '--n': wordIndex })}
           >
             {body}
           </div>

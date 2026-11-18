@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts", "server", "netlify", "src/data"]
+  "include": ["vite.config.ts", "server", "netlify", "src/data", "src/features/chat/protocol.ts"]
 }

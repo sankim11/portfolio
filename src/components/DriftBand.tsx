@@ -1,4 +1,4 @@
-import { useScrollVar } from '../motion';
+import { useScrollVar } from '../lib/motion';
 
 const words = ['Fintech', 'SaaS', 'AI', 'Stripe', 'Agtech', 'Payments', 'Data pipelines'];
 const row = [...words, ...words];
