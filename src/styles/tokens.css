@@ -1,0 +1,70 @@
+/* DSK — design tokens. Mirrors the design system's tokens.json; edit both together. */
+
+:root,
+[data-theme='dark'] {
+  --bg: #060606;
+  --surface-1: #0d0d0d;
+  --surface-2: #141414;
+  --line: #ffffff14;
+  --line-strong: #ffffff29;
+  --text: #f5f5f5;
+  --text-2: #a6a6a6;
+  --text-3: #868686;
+  --chrome-1: #e8eaef;
+  --chrome-2: #bcc0ca;
+  --on-chrome: #060606;
+  --sheen-1: #bcc0ca;
+  --sheen-2: #feeae1;
+  --sheen-3: #c0cef2;
+  --live: #86e3b5;
+  --scrim: #000000a3;
+  --shadow-stage: 0 40px 120px -48px rgba(0, 0, 0, 0.75);
+  --shadow-sheet: 0 32px 96px -24px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #eceef1;
+  --surface-1: #f8f9fa;
+  --surface-2: #e2e4e8;
+  --line: #0a0b0d17;
+  --line-strong: #0a0b0d2e;
+  --text: #0b0c0e;
+  --text-2: #4a4d54;
+  --text-3: #62656c;
+  --chrome-1: #17181c;
+  --chrome-2: #3a3d45;
+  --on-chrome: #f5f5f5;
+  --sheen-1: #17181c;
+  --sheen-2: #5a4a44;
+  --sheen-3: #33405e;
+  --live: #0f7a4a;
+  --scrim: #0a0b0d66;
+  --shadow-stage: 0 30px 80px -40px rgba(20, 22, 30, 0.28);
+  --shadow-sheet: 0 24px 72px -24px rgba(20, 22, 30, 0.35);
+  color-scheme: light;
+}
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  --font-display: 'Geist', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

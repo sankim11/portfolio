@@ -1,0 +1,527 @@
+/* DSK — the "Ask about David" chat. Structure first, then choreography.
+   Loaded after ds.css and motion.css; the reduced-motion rule in ds.css stills all of it. */
+
+/* ---------- Sheen ring: a light that travels round an element's edge ---------- */
+@property --ring-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+.ring {
+  position: relative;
+}
+.ring::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--ring-angle),
+    transparent 0 52%,
+    var(--sheen-3) 68%,
+    var(--sheen-2) 82%,
+    var(--chrome-1) 92%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  pointer-events: none;
+  animation: ringSpin 6s linear infinite;
+}
+@keyframes ringSpin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+/* ---------- Launcher ---------- */
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.chat-launcher {
+  position: fixed;
+  right: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 70;
+  height: 48px;
+  padding: 0 14px 0 16px;
+  gap: 10px;
+  border-color: var(--line);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-stage);
+}
+.chat-launcher[hidden] {
+  display: none;
+}
+.chat-launcher:hover {
+  background: var(--surface-2);
+}
+.chat-launcher:hover::before {
+  animation-duration: 2.2s;
+}
+.chat-orb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sheen-3), var(--sheen-2));
+  box-shadow: 0 0 14px color-mix(in oklab, var(--sheen-3) 70%, transparent);
+  animation: orbPulse 2.6s ease-in-out infinite;
+}
+@keyframes orbPulse {
+  50% {
+    scale: 0.72;
+    opacity: 0.7;
+  }
+}
+.chat-key {
+  min-width: 22px;
+  padding: 3px 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font: 400 12px/1 var(--font-mono);
+  color: var(--text-3);
+  text-align: center;
+}
+@media (hover: none) {
+  .chat-key {
+    display: none;
+  }
+}
+
+/* ---------- Panel ---------- */
+.chat {
+  position: fixed;
+  inset: auto var(--space-5) var(--space-5) auto;
+  margin: 0;
+  padding: 0;
+  width: min(420px, calc(100vw - 32px));
+  height: min(660px, calc(100dvh - 48px));
+  max-width: none;
+  max-height: none;
+  flex-direction: column;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-xl);
+  background: var(--surface-1);
+  color: var(--text-2);
+  box-shadow: var(--shadow-sheet);
+  overflow: hidden;
+  outline: none;
+}
+.chat[open] {
+  display: flex;
+}
+.chat::backdrop {
+  background: var(--scrim);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.chat-trace {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.chat-head {
+  position: relative;
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5) 60px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.chat-head > :not(canvas) {
+  position: relative;
+  z-index: 1;
+}
+.chat-head p {
+  margin-top: 4px;
+  max-width: 30ch;
+  color: var(--text-3);
+}
+.chat-pulse {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.chat-grip {
+  display: none;
+}
+.chat-close {
+  flex: none;
+  background: var(--surface-1);
+}
+
+.chat-log {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.chat-empty {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.chat-suggest {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.chat-suggest button {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 12px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-2);
+  font: 400 15px/1.3 var(--font-display);
+  text-align: left;
+  cursor: pointer;
+  transition: color 200ms ease, padding 320ms var(--ease-out);
+}
+.chat-suggest svg {
+  flex: none;
+  color: var(--text-3);
+  transition: translate 320ms var(--ease-out), color 200ms ease;
+}
+.chat-suggest button:hover {
+  color: var(--text);
+  padding-left: 10px;
+}
+.chat-suggest button:hover svg {
+  color: var(--text);
+  translate: 3px -3px;
+}
+
+.chat-msg {
+  max-width: 88%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+  color: var(--text);
+}
+.chat-user {
+  align-self: flex-end;
+  padding: 10px 14px;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+  background: var(--surface-2);
+}
+.chat-assistant {
+  align-self: flex-start;
+}
+.chat-assistant.is-error {
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-2);
+}
+.chat-wait {
+  background: linear-gradient(90deg, var(--text-3) 35%, var(--text) 50%, var(--text-3) 65%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: waitShimmer 1.7s linear infinite;
+}
+@keyframes waitShimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+.chat-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--chrome-1);
+  animation: chatCaret 1s steps(2, jump-none) infinite;
+}
+@keyframes chatCaret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.chat-form {
+  flex: none;
+  padding: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+.chat-field {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  padding: 5px 5px 5px 16px;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  transition: border-color 200ms ease;
+}
+.chat-field::before {
+  opacity: 0;
+  transition: opacity 300ms ease;
+  animation-duration: 3.2s;
+}
+.chat-field:focus-within {
+  border-color: var(--line-strong);
+}
+.chat-field:focus-within::before {
+  opacity: 1;
+}
+.chat-field textarea {
+  flex: 1;
+  min-height: 38px;
+  max-height: 120px;
+  padding: 9px 0;
+  resize: none;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font: 400 15px/1.35 var(--font-display);
+}
+.chat-field textarea::placeholder {
+  color: var(--text-3);
+}
+.chat-field .btn-icon {
+  width: 38px;
+  height: 38px;
+  flex: none;
+}
+
+/* ---------- Choreography: desktop ---------- */
+/* The page steps back while the chat has the floor. */
+main {
+  transform-origin: 50% var(--chat-oy, 50%);
+  transition: scale 720ms var(--ease-out);
+}
+html.chat-open main {
+  scale: 0.98;
+}
+
+.chat-launcher.is-intro {
+  animation: seqIn 900ms 3400ms var(--ease-out) both;
+}
+.chat-launcher.is-back {
+  animation: launcherBack 520ms var(--ease-out) both;
+}
+@keyframes launcherBack {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Opening: the panel grows out of the launcher's footprint, a light traces its
+   edge once, then the contents arrive one after another. */
+.chat[data-phase='opening'] {
+  animation: chatGrow 680ms cubic-bezier(0.65, 0, 0.2, 1) both;
+}
+@keyframes chatGrow {
+  from {
+    clip-path: inset(
+      calc(100% - var(--lh, 48px)) 0 0 calc(100% - var(--lw, 200px)) round
+        calc(var(--lh, 48px) / 2)
+    );
+  }
+  to {
+    clip-path: inset(0 0 0 0 round var(--radius-xl));
+  }
+}
+.chat[data-phase='opening']::backdrop {
+  animation: scrimIn 560ms ease both;
+}
+@keyframes scrimIn {
+  from {
+    opacity: 0;
+  }
+}
+.chat[data-phase='opening'] .chat-trace {
+  animation: traceFlash 1100ms 200ms ease-out both;
+}
+.chat[data-phase='opening'] .chat-trace::before {
+  animation: ringSpin 1100ms 200ms cubic-bezier(0.3, 0, 0.3, 1) 1 both;
+}
+@keyframes traceFlash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  25%,
+  70% {
+    opacity: 1;
+  }
+}
+.chat[data-phase='opening'] .chat-stagger {
+  animation: seqIn 640ms var(--ease-out) both;
+  animation-delay: calc(240ms + var(--i, 0) * 65ms);
+}
+.chat[data-phase='opening'] .chat-pulse {
+  animation: scrimIn 900ms 200ms ease both;
+}
+
+/* Closing: contents leave first, then the panel folds back into the launcher. */
+.chat[data-phase='closing'] {
+  animation: chatShrink 440ms cubic-bezier(0.6, 0, 0.3, 1) both;
+}
+@keyframes chatShrink {
+  from {
+    clip-path: inset(0 0 0 0 round var(--radius-xl));
+  }
+  to {
+    clip-path: inset(
+      calc(100% - var(--lh, 48px)) 0 0 calc(100% - var(--lw, 200px)) round
+        calc(var(--lh, 48px) / 2)
+    );
+  }
+}
+.chat[data-phase='closing'] > * {
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+.chat[data-phase='closing']::backdrop {
+  animation: scrimOut 440ms ease both;
+}
+@keyframes scrimOut {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Each piece of an answer resolves out of a blur as it arrives. */
+.chat-msg {
+  animation: swapIn 420ms var(--ease-out) both;
+}
+.chat-chunk {
+  animation: chunkIn 520ms var(--ease-out) both;
+}
+@keyframes chunkIn {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+/* ---------- Phones: a bottom sheet that rises, follows the keyboard, and
+   can be dragged down by its header ---------- */
+@media (max-width: 640px) {
+  /* Bottom-right, with enough margin to clear the rounded screen corner and
+     the home indicator. */
+  .chat-launcher {
+    right: calc(var(--space-5) + env(safe-area-inset-right, 0px));
+    bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+    height: 52px;
+    padding: 0 20px 0 18px;
+  }
+  .chat {
+    inset: auto 0 var(--kb, 0px) 0;
+    width: 100%;
+    height: min(88dvh, calc(var(--vvh, 100dvh) - 12px));
+    border-width: 1px 0 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    transition: translate 320ms var(--ease-out);
+  }
+  .chat-head {
+    padding-top: 30px;
+    padding-bottom: 72px;
+    touch-action: none;
+  }
+  .chat-grip {
+    display: block;
+    position: absolute !important;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    height: 4px;
+    margin-left: -20px;
+    border-radius: var(--radius-pill);
+    background: var(--line-strong);
+  }
+  .chat-close {
+    width: 44px;
+    height: 44px;
+  }
+  .chat-field textarea {
+    /* 16px keeps iOS from zooming the page when the field takes focus. */
+    font-size: 16px;
+  }
+  .chat-field .btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+  .chat-form {
+    padding: var(--space-3) var(--space-4)
+      calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  }
+
+  html.chat-open,
+  html.chat-open body {
+    overflow: hidden;
+  }
+  html.chat-open main {
+    scale: 0.95;
+  }
+
+  .chat[data-phase='opening'] {
+    animation: sheetUp 600ms var(--ease-out) both;
+  }
+  @keyframes sheetUp {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  .chat[data-phase='closing'] {
+    animation: sheetDown 400ms cubic-bezier(0.5, 0, 0.8, 0.5) both;
+  }
+  @keyframes sheetDown {
+    from {
+      transform: translateY(var(--drag, 0px));
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
+  .chat[data-phase='closing'] > * {
+    opacity: 1;
+  }
+}
+
+/* Without motion the ring is a partial arc, so focus gets a plain outline. */
+@media (prefers-reduced-motion: reduce) {
+  .chat-field:focus-within {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+  .chat-field::before,
+  .chat-launcher::before {
+    display: none;
+  }
+  html.chat-open main {
+    scale: none;
+  }
+}
